@@ -65,7 +65,17 @@ private fun ArtifactDependencySpec.annotationProcessorName(): String? {
 private val ARTIFACTS_WITH_ANNOTATION_PROCESSORS = mapOf(
         "com.google.dagger:dagger" to "dagger-compiler",
         "com.jakewharton:butterknife" to "butterknife-compiler",
-        "com.google.auto.value:auto-value" to "auto-value"
+        "com.google.auto.value:auto-value" to "auto-value",
+        "android.arch.persistence.room:runtime" to "room-compiler",
+        "androidx.room:room-runtime" to "room-compiler",
+        "android.arch.lifecycle:extensions" to "lifecycle-compiler",
+        "android.arch.lifecycle:viewmodel" to "lifecycle-compiler",
+        "android.arch.lifecycle:viewmodel-ktx" to "lifecycle-compiler",
+        "android.arch.lifecycle:livedata" to "lifecycle-compiler",
+        "androidx.lifecycle:lifecycle-extensions" to "lifecycle-compiler",
+        "androidx.lifecycle:lifecycle-viewmodel" to "lifecycle-compiler",
+        "androidx.lifecycle:lifecycle-viewmodel-ktx" to "lifecycle-compiler",
+        "androidx.lifecycle:lifecycle-livedata" to "lifecycle-compiler"
 )
 
 private fun DependenciesModel.addArtifactCompat(configurationName: String, dependencySpec: ArtifactDependencySpec) {
