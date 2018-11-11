@@ -21,16 +21,13 @@ class GoogleRepository(private val networkClient: NetworkClient) : ArtifactRepos
 
     private fun findArtifacts(query: String): SearchResult {
         val requestedArtifacts = ARTIFACT_NAMES.filter { it.contains(query) }
-        requestedArtifacts.firstOrNull()?.let {
+        val artifacts = mutableListOf<Artifact>()
+        requestedArtifacts.forEach {
             val version = getLatestVersion(it)
-            return SearchResult.Success(
-                    requestedArtifacts.map {
-                        val (groupId, name) = it.split(":".toRegex(), 2)
-                        Artifact(groupId, name, version)
-                    }
-            )
+            val (groupId, name) = it.split(":".toRegex(), 2)
+            artifacts += Artifact(groupId, name, version)
         }
-        return SearchResult.Success()
+        return SearchResult.Success(artifacts)
     }
 
     private fun getLatestVersion(artifactId: String): String {
@@ -57,7 +54,7 @@ class GoogleRepository(private val networkClient: NetworkClient) : ArtifactRepos
             }
             return@execute "+"
         }
-        return when(response) {
+        return when (response) {
             is NetworkResult.Failure -> "+"
             is NetworkResult.Success -> response.data
         }
